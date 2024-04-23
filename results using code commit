@@ -1,0 +1,41 @@
+{
+  "name" : "annual-reports",
+  "jobMode" : "VISUAL",
+  "description" : "",
+  "role" : "arn:aws:iam::975049920168:role/AWSGlue",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-975049920168-us-east-1/scripts/annual-reports.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-975049920168-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-observability-metrics" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-975049920168-us-east-1/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "2.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1713869061248\":{\"CatalogSource\":{\"Database\":\"annual-reports\",\"Name\":\"AWS Glue Data Catalog\",\"Table\":\"csv_reports\"}},\"node-1713869443216\":{\"ApplyMapping\":{\"Inputs\":[\"node-1713869061248\"],\"Mapping\":[{\"Dropped\":false,\"FromPath\":[\"series_reference\"],\"FromType\":\"string\",\"ToKey\":\"series_reference\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"period\"],\"FromType\":\"string\",\"ToKey\":\"period\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"type\"],\"FromType\":\"string\",\"ToKey\":\"type\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"data_value\"],\"FromType\":\"double\",\"ToKey\":\"data_value\",\"ToType\":\"double\"},{\"Dropped\":false,\"FromPath\":[\"lower_ci\"],\"FromType\":\"double\",\"ToKey\":\"lower_ci\",\"ToType\":\"double\"},{\"Dropped\":false,\"FromPath\":[\"upper_ci\"],\"FromType\":\"double\",\"ToKey\":\"upper_ci\",\"ToType\":\"double\"},{\"Dropped\":false,\"FromPath\":[\"units\"],\"FromType\":\"string\",\"ToKey\":\"units\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"indicator\"],\"FromType\":\"string\",\"ToKey\":\"indicator\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"cause\"],\"FromType\":\"string\",\"ToKey\":\"cause\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"validation\"],\"FromType\":\"string\",\"ToKey\":\"validation\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"population\"],\"FromType\":\"string\",\"ToKey\":\"population\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"age\"],\"FromType\":\"string\",\"ToKey\":\"age\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"severity\"],\"FromType\":\"string\",\"ToKey\":\"severity\",\"ToType\":\"string\"}],\"Name\":\"Change Schema\"}},\"node-1713869622295\":{\"S3GlueParquetTarget\":{\"Compression\":\"uncompressed\",\"Inputs\":[\"node-1713869443216\"],\"Name\":\"Amazon S3\",\"PartitionKeys\":[],\"Path\":\"s3://aws-glue-bucket2219/target-data-store/parquet-reports/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}}}",
+  "sourceControlDetails" : {
+    "provider" : "AWS_CODE_COMMIT",
+    "repository" : "projectrepository",
+    "branch" : "main",
+    "folder" : "annual-reports"
+  }
+}
